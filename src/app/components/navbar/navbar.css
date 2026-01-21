@@ -1,0 +1,505 @@
+/* ======================================================================================== */
+/* NAVBAR COMPONENT - SISTEMA DE DISEÑO */
+/* ======================================================================================== */
+
+/* Importar fuente Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* Variables del sistema de diseño */
+:host {
+  /* Paleta de colores */
+  --primary: #F48C06;          /* Amarillo-naranja */
+  --secondary: #23BDEE;        /* Celeste brillante */
+  --accent: #2F327D;           /* Azul suave */
+  --background-cream: #FFF2E1; /* Fondo crema */
+  --white: #FFFFFF;            /* Blanco */
+  --grey-1: #6B7280;           /* Gris 1 */
+  --grey-2: #9CA3AF;           /* Gris 2 */
+  
+  /* Efectos y sombras */
+  --shadow-card: 0 4px 6px rgba(0, 0, 0, 0.07);
+  --border-radius: 16px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Layout */
+  --navbar-height: 70px;
+  --container-padding: clamp(1rem, 4vw, 2rem);
+  --max-width: 1280px;
+}
+
+/* ======================================================================================== */
+/* ANIMACIONES */
+/* ======================================================================================== */
+
+.floating {
+  animation: floating 3s ease-in-out infinite;
+}
+
+@keyframes floating {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* ======================================================================================== */
+/* NAVBAR PRINCIPAL */
+/* ======================================================================================== */
+
+.protected-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--navbar-height);
+  background: var(--white);
+  border-bottom: 1px solid rgba(35, 189, 238, 0.1);
+  box-shadow: var(--shadow-card);
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.navbar-content {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* ======================================================================================== */
+/* BRAND / LOGO */
+/* ======================================================================================== */
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.navbar-brand:hover {
+  transform: scale(1.05);
+}
+
+.brand-icon {
+  font-size: 1.75rem;
+  flex-shrink: 0;
+}
+
+.brand-text {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(1.125rem, 3vw, 1.25rem);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* ======================================================================================== */
+/* NAVEGACIÓN */
+/* ======================================================================================== */
+
+.navbar-nav {
+  display: flex;
+  gap: 0.5rem;
+  flex: 1;
+  justify-content: center;
+  max-width: 400px;
+}
+
+.nav-item {
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: none;
+  border-radius: calc(var(--border-radius) - 8px);
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+  font-weight: 500;
+  color: var(--grey-1);
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(244, 140, 6, 0.1), 
+    transparent);
+  transition: left 0.5s ease;
+}
+
+.nav-item:hover::before {
+  left: 100%;
+}
+
+.nav-item:hover {
+  background: rgba(244, 140, 6, 0.1);
+  color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.nav-item.active {
+  background: var(--primary);
+  color: var(--white);
+  box-shadow: 0 2px 8px rgba(244, 140, 6, 0.3);
+}
+
+.nav-item.active::before {
+  display: none;
+}
+
+.nav-item:active {
+  transform: translateY(0);
+}
+
+/* ======================================================================================== */
+/* SECCIÓN DE USUARIO */
+/* ======================================================================================== */
+
+.navbar-user {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: var(--transition);
+}
+
+.user-info:hover {
+  transform: scale(1.02);
+}
+
+/* Avatar */
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--secondary), var(--primary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid transparent;
+  transition: var(--transition);
+  position: relative;
+}
+
+.user-avatar::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, var(--primary), var(--secondary));
+  border-radius: 50%;
+  z-index: -1;
+  opacity: 0;
+  transition: var(--transition);
+}
+
+.user-avatar:hover::before {
+  opacity: 1;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition);
+}
+
+.avatar-img:hover {
+  transform: scale(1.1);
+}
+
+.avatar-initials {
+  color: var(--white);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Nombre de usuario */
+.user-name {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  color: var(--accent);
+  font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: var(--transition);
+}
+
+.user-name:hover {
+  color: var(--primary);
+}
+
+/* Botón de logout */
+.logout-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  cursor: pointer;
+  font-size: 1rem;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.logout-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(239, 68, 68, 0.2);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  transform: translate(-50%, -50%);
+}
+
+.logout-btn:hover::before {
+  width: 100%;
+  height: 100%;
+}
+
+.logout-btn:hover {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.3);
+  transform: scale(1.05);
+}
+
+.logout-btn:active {
+  transform: scale(0.95);
+}
+
+/* ======================================================================================== */
+/* SKELETON LOADING */
+/* ======================================================================================== */
+
+.user-skeleton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  animation: pulse 1.5s infinite;
+}
+
+.skeleton-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, 
+    var(--grey-2) 25%, 
+    rgba(156, 163, 175, 0.5) 50%, 
+    var(--grey-2) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.skeleton-name {
+  width: 80px;
+  height: 16px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, 
+    var(--grey-2) 25%, 
+    rgba(156, 163, 175, 0.5) 50%, 
+    var(--grey-2) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* ======================================================================================== */
+/* RESPONSIVE DESIGN */
+/* ======================================================================================== */
+
+/* Extra small devices (less than 576px) */
+@media (max-width: 575.98px) {
+  .navbar-content {
+    padding: 0 0.75rem;
+    gap: 0.5rem;
+  }
+  
+  .brand-text {
+    display: none;
+  }
+  
+  .brand-icon {
+    font-size: 1.5rem;
+  }
+  
+  .navbar-nav {
+    gap: 0.25rem;
+    max-width: 200px;
+  }
+  
+  .nav-item {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.75rem;
+  }
+  
+  .user-name {
+    display: none;
+  }
+  
+  .user-avatar,
+  .logout-btn {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .avatar-initials {
+    font-size: 0.75rem;
+  }
+}
+
+/* Small devices (576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .navbar-nav {
+    gap: 0.5rem;
+  }
+  
+  .user-name {
+    max-width: 80px;
+  }
+}
+
+/* Medium devices (768px and up) */
+@media (min-width: 768px) {
+  .navbar-nav {
+    gap: 0.75rem;
+  }
+  
+  .nav-item {
+    padding: 0.625rem 1.125rem;
+  }
+  
+  .user-name {
+    display: block;
+    max-width: 120px;
+  }
+  
+  .brand-text {
+    display: inline;
+  }
+}
+
+/* Large devices (1024px and up) */
+@media (min-width: 1024px) {
+  .navbar-nav {
+    gap: 1rem;
+    max-width: 500px;
+  }
+  
+  .nav-item {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .user-name {
+    max-width: 150px;
+  }
+}
+
+/* Extra large devices (1280px and up) */
+@media (min-width: 1280px) {
+  .navbar-content {
+    padding: 0 2rem;
+  }
+  
+  .user-name {
+    max-width: 200px;
+  }
+}
+
+/* Landscape orientation for small devices */
+@media (max-height: 600px) and (orientation: landscape) {
+  .protected-navbar {
+    height: 60px;
+  }
+  
+  .brand-icon {
+    font-size: 1.5rem;
+  }
+  
+  .user-avatar,
+  .logout-btn {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .protected-navbar {
+    border-bottom-width: 2px;
+    border-bottom-color: var(--accent);
+  }
+  
+  .nav-item {
+    border: 1px solid transparent;
+  }
+  
+  .nav-item:hover,
+  .nav-item.active {
+    border-color: var(--primary);
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .floating {
+    animation: none;
+  }
+  
+  .shimmer {
+    animation: none;
+  }
+  
+  * {
+    transition-duration: 0.1s;
+  }
+}

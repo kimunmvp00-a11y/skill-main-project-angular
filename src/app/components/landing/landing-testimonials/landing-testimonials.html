@@ -1,0 +1,106 @@
+<!-- Landing Testimonials Section -->
+<section id="testimonials" class="py-16 sm:py-20 lg:py-28 px-4 sm:px-6 bg-accent-dark text-white overflow-hidden">
+    <div class="max-w-7xl mx-auto">
+
+        <!-- Section Header -->
+        <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+            <span class="inline-block bg-white/10 text-white px-4 py-2 rounded-full text-sm font-semibold mb-4">
+                Historias de Éxito
+            </span>
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold font-display mb-4 sm:mb-6">
+                Lo que dicen nuestros
+                <span class="text-primary">profesionales</span>
+            </h2>
+            <p class="text-gray-400 text-base sm:text-lg">
+                Miles de profesionales ya han transformado sus carreras con SkillMain.
+            </p>
+        </div>
+
+        <!-- Testimonial Slider -->
+        <div class="relative max-w-4xl mx-auto">
+            <!-- Main Card -->
+            <div class="bg-white/5 backdrop-blur-sm rounded-4xl p-6 sm:p-8 lg:p-12 border border-white/10">
+
+                <!-- Quote Icon -->
+                <div class="text-primary mb-6">
+                    <span class="material-icons-outlined text-5xl sm:text-6xl">format_quote</span>
+                </div>
+
+                <!-- Testimonial Content -->
+                <div class="min-h-[120px] sm:min-h-[100px]">
+                    <p class="text-lg sm:text-xl lg:text-2xl leading-relaxed mb-8">
+                        "{{ testimonios[testimonioActual].texto }}"
+                    </p>
+                </div>
+
+                <!-- Author Info -->
+                <div
+                    class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-6 pt-6 border-t border-white/10">
+                    <div class="flex items-center gap-4">
+                        <!-- Avatar -->
+                        <div
+                            class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-primary flex items-center justify-center font-bold text-lg">
+                            {{ testimonios[testimonioActual].avatar }}
+                        </div>
+                        <div>
+                            <p class="font-bold text-base sm:text-lg">{{ testimonios[testimonioActual].nombre }}</p>
+                            <p class="text-gray-400 text-sm">{{ testimonios[testimonioActual].rol }} · {{
+                                testimonios[testimonioActual].empresa }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Rating -->
+                    <div class="flex items-center gap-1">
+                        @for (star of getStars(testimonios[testimonioActual].rating); track $index) {
+                        <span class="material-icons-outlined text-card-yellow text-xl">star</span>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Arrows -->
+            <div class="flex justify-center gap-4 mt-8">
+                <button (click)="anterior()"
+                    class="w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                    aria-label="Testimonio anterior">
+                    <span class="material-icons-outlined">chevron_left</span>
+                </button>
+                <button (click)="siguiente()"
+                    class="w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                    aria-label="Siguiente testimonio">
+                    <span class="material-icons-outlined">chevron_right</span>
+                </button>
+            </div>
+
+            <!-- Dots Indicator -->
+            <div class="flex justify-center gap-2 mt-6">
+                @for (testimonio of testimonios; track testimonio.nombre; let i = $index) {
+                <button (click)="irA(i)" class="w-2.5 h-2.5 rounded-full transition-all"
+                    [class]="i === testimonioActual ? 'bg-primary w-8' : 'bg-white/30 hover:bg-white/50'"
+                    [attr.aria-label]="'Ir a testimonio ' + (i + 1)">
+                </button>
+                }
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mt-12 sm:mt-16 max-w-4xl mx-auto">
+            <div class="text-center p-4">
+                <p class="text-3xl sm:text-4xl font-bold text-primary">5,000+</p>
+                <p class="text-gray-400 text-sm mt-1">Profesionales activos</p>
+            </div>
+            <div class="text-center p-4">
+                <p class="text-3xl sm:text-4xl font-bold text-card-yellow">4.9</p>
+                <p class="text-gray-400 text-sm mt-1">Valoración promedio</p>
+            </div>
+            <div class="text-center p-4">
+                <p class="text-3xl sm:text-4xl font-bold text-accent-purple">92%</p>
+                <p class="text-gray-400 text-sm mt-1">Tasa de promoción</p>
+            </div>
+            <div class="text-center p-4">
+                <p class="text-3xl sm:text-4xl font-bold text-card-blue">150+</p>
+                <p class="text-gray-400 text-sm mt-1">Empresas partner</p>
+            </div>
+        </div>
+    </div>
+</section>

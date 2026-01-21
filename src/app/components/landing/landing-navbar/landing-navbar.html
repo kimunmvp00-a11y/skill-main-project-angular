@@ -1,0 +1,92 @@
+<!-- Landing Navbar -->
+<nav class="fixed w-full z-50 px-4 sm:px-6 py-3 sm:py-4">
+    <div
+        class="max-w-7xl mx-auto flex justify-between items-center bg-white/80 dark:bg-accent-dark/80 backdrop-blur-md rounded-full px-4 sm:px-8 py-2 sm:py-3 border border-black/5 dark:border-white/5 shadow-lg shadow-black/5">
+
+        <!-- Logo -->
+        <a href="/" class="flex items-center gap-2 group">
+            <span class="text-xl sm:text-2xl font-bold tracking-tighter font-display">
+                Skill<span class="text-primary group-hover:text-accent-purple transition-colors">Main</span>
+            </span>
+        </a>
+
+        <!-- Navigation Links - Desktop -->
+        <div class="hidden lg:flex items-center gap-6 xl:gap-8 font-medium text-sm">
+            <button (click)="scrollTo('features')" class="hover:text-primary transition-colors">Beneficios</button>
+            <button (click)="scrollTo('courses')" class="hover:text-primary transition-colors">Cursos</button>
+            <button (click)="scrollTo('testimonials')" class="hover:text-primary transition-colors">Testimonios</button>
+            <button (click)="scrollTo('cta')" class="hover:text-primary transition-colors">Contacto</button>
+        </div>
+
+        <!-- Auth Buttons - Desktop -->
+        <div class="hidden md:flex items-center gap-3">
+            <button (click)="irAAuth()"
+                class="px-5 py-2 rounded-full font-semibold text-sm border-2 border-gray-200 hover:border-primary hover:text-primary transition-all">
+                Acceso
+            </button>
+            <button (click)="irAAuth()"
+                class="px-5 py-2 rounded-full font-bold text-sm bg-primary text-white hover:opacity-90 hover:scale-[1.02] transition-all shadow-lg shadow-primary/20">
+                Empieza Gratis
+            </button>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button (click)="toggleMenu()"
+            class="lg:hidden flex items-center justify-center w-10 h-10 rounded-full hover:bg-gray-100 transition-colors"
+            [attr.aria-expanded]="menuAbierto" aria-label="Menú de navegación">
+            <span class="material-icons-outlined text-2xl">
+                {{ menuAbierto ? 'close' : 'menu' }}
+            </span>
+        </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    @if (menuAbierto) {
+    <div
+        class="lg:hidden mt-2 mx-4 bg-white/95 backdrop-blur-md rounded-3xl border border-black/5 shadow-xl overflow-hidden animate-fade-in-up">
+        <div class="p-6 space-y-4">
+            <!-- Navigation Links -->
+            <div class="space-y-2">
+                <button (click)="scrollTo('features')"
+                    class="w-full text-left px-4 py-3 rounded-2xl font-medium hover:bg-gray-100 transition-colors flex items-center gap-3">
+                    <span class="material-icons-outlined text-primary">star</span>
+                    Beneficios
+                </button>
+                <button (click)="scrollTo('courses')"
+                    class="w-full text-left px-4 py-3 rounded-2xl font-medium hover:bg-gray-100 transition-colors flex items-center gap-3">
+                    <span class="material-icons-outlined text-accent-purple">school</span>
+                    Cursos
+                </button>
+                <button (click)="scrollTo('testimonials')"
+                    class="w-full text-left px-4 py-3 rounded-2xl font-medium hover:bg-gray-100 transition-colors flex items-center gap-3">
+                    <span class="material-icons-outlined text-card-yellow">format_quote</span>
+                    Testimonios
+                </button>
+                <button (click)="scrollTo('cta')"
+                    class="w-full text-left px-4 py-3 rounded-2xl font-medium hover:bg-gray-100 transition-colors flex items-center gap-3">
+                    <span class="material-icons-outlined text-card-blue">mail</span>
+                    Contacto
+                </button>
+            </div>
+
+            <!-- Divider -->
+            <div class="border-t border-gray-200"></div>
+
+            <!-- Auth Buttons -->
+            <div class="space-y-3">
+                <button (click)="irAAuth()"
+                    class="w-full px-6 py-3 rounded-2xl font-semibold text-center border-2 border-gray-200 hover:border-primary hover:text-primary transition-all">
+                    Acceso
+                </button>
+                <button (click)="irAAuth()"
+                    class="w-full px-6 py-3 rounded-2xl font-bold text-center bg-primary text-white hover:opacity-90 transition-all shadow-lg shadow-primary/20">
+                    Empieza Gratis
+                </button>
+            </div>
+        </div>
+    </div>
+    }
+</nav>
+
+<!-- Spacer for fixed navbar -->
+<div class="h-16 sm:h-20"></div>

@@ -1,0 +1,100 @@
+<!-- Landing Courses Section -->
+<section id="courses" class="py-16 sm:py-20 lg:py-28 px-4 sm:px-6 bg-background-light">
+    <div class="max-w-7xl mx-auto">
+
+        <!-- Section Header -->
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10 sm:mb-14">
+            <div>
+                <span class="inline-block bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-semibold mb-4">
+                    Cursos Destacados
+                </span>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold font-display">
+                    Aprende las habilidades <br class="hidden sm:block">
+                    <span class="text-primary">más demandadas</span>
+                </h2>
+            </div>
+            <button (click)="irACursos()"
+                class="self-start md:self-auto bg-white border-2 border-gray-200 px-6 py-3 rounded-2xl font-semibold hover:border-primary hover:text-primary transition-all flex items-center gap-2">
+                Ver todos los cursos
+                <span class="material-icons-outlined">arrow_forward</span>
+            </button>
+        </div>
+
+        <!-- Courses Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            @for (curso of cursos; track curso.titulo) {
+            <div class="p-5 sm:p-6 rounded-3xl flex flex-col h-full text-gray-900 border-2 border-transparent hover:border-gray-900 transition-all cursor-pointer group"
+                [class]="getCardBgClass(curso.color)">
+
+                <!-- Header con badge y bookmark -->
+                <div class="flex justify-between items-start mb-5">
+                    <span
+                        class="bg-dark-gray text-white text-[10px] px-3 py-1 rounded-md font-bold uppercase tracking-wider">
+                        {{ curso.categoria }}
+                    </span>
+                    <button class="hover:scale-110 transition-transform" aria-label="Guardar curso">
+                        <span class="material-icons-outlined">bookmark_border</span>
+                    </button>
+                </div>
+
+                <!-- Título del curso -->
+                <h3
+                    class="text-lg sm:text-xl font-bold mb-6 sm:mb-8 leading-tight font-display group-hover:text-primary transition-colors">
+                    {{ curso.titulo }}
+                </h3>
+
+                <!-- Footer con progreso y CTA -->
+                <div class="mt-auto">
+                    <!-- Progress bar -->
+                    <div class="flex justify-between text-xs font-bold mb-2">
+                        <span>Progreso</span>
+                        <span>{{ curso.leccionesCompletadas }}/{{ curso.totalLecciones }} lecciones</span>
+                    </div>
+                    <div class="w-full h-2.5 sm:h-3 bg-black/10 rounded-full overflow-hidden mb-5 sm:mb-6">
+                        <div class="bg-dark-gray h-full transition-all duration-500" [style.width.%]="curso.progreso">
+                        </div>
+                    </div>
+
+                    <!-- Avatares y botón -->
+                    <div class="flex items-center justify-between">
+                        <div class="flex -space-x-2">
+                            <div class="w-8 h-8 rounded-full bg-dark-gray text-white flex items-center justify-center text-[10px] font-bold border-2"
+                                [class]="getBorderClass(curso.color)">
+                                +{{ formatStudents(curso.estudiantes) }}
+                            </div>
+                        </div>
+                        <button (click)="irACursos()"
+                            class="bg-primary text-white px-5 sm:px-6 py-2 rounded-xl text-sm font-bold shadow-lg shadow-primary/20 hover:scale-105 transition-transform">
+                            Empezar
+                        </button>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+
+        <!-- Course Categories -->
+        <div class="mt-10 sm:mt-14 flex flex-wrap justify-center gap-3">
+            <span
+                class="px-4 py-2 bg-white rounded-full text-sm font-medium border border-gray-200 hover:border-primary hover:text-primary transition-all cursor-pointer">
+                🎯 Marketing
+            </span>
+            <span
+                class="px-4 py-2 bg-white rounded-full text-sm font-medium border border-gray-200 hover:border-primary hover:text-primary transition-all cursor-pointer">
+                💻 Tecnología
+            </span>
+            <span
+                class="px-4 py-2 bg-white rounded-full text-sm font-medium border border-gray-200 hover:border-primary hover:text-primary transition-all cursor-pointer">
+                👥 Liderazgo
+            </span>
+            <span
+                class="px-4 py-2 bg-white rounded-full text-sm font-medium border border-gray-200 hover:border-primary hover:text-primary transition-all cursor-pointer">
+                📊 Data & Analytics
+            </span>
+            <span
+                class="px-4 py-2 bg-white rounded-full text-sm font-medium border border-gray-200 hover:border-primary hover:text-primary transition-all cursor-pointer">
+                🎨 Diseño
+            </span>
+        </div>
+    </div>
+</section>

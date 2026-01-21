@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <title>SkillMain - Impulsa tu Carrera Profesional</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description"
+    content="SkillMain te ofrece las herramientas y el acompañamiento para gestionar tu reskilling y upskilling profesional. Mantente relevante en el mercado laboral.">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <!-- Google Fonts: Kodchasan (Display) & Inter (Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Kodchasan:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+
+  <!-- TailwindCSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: "#ff5734",
+            "background-light": "#f7f7f5",
+            "background-dark": "#151313",
+            accent: {
+              purple: "#be94f5",
+              yellow: "#fccc42",
+              dark: "#151313"
+            },
+            "card-yellow": "#fccc42",
+            "card-purple": "#be94f5",
+            "card-blue": "#b2e3f9",
+            "dark-gray": "#1c1c1c"
+          },
+          fontFamily: {
+            display: ["Kodchasan", "sans-serif"],
+            body: ["Inter", "sans-serif"]
+          },
+          borderRadius: {
+            'custom': '24px',
+            '4xl': '40px'
+          }
+        }
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer base {
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        @apply font-body bg-background-light text-accent-dark antialiased;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        @apply font-display;
+      }
+    }
+    @layer utilities {
+      .text-gradient {
+        @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent-purple;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <app-root></app-root>
+</body>
+
+</html>

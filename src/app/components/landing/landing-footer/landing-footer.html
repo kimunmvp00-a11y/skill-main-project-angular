@@ -1,0 +1,96 @@
+<!-- Landing Footer -->
+<footer class="bg-accent-dark text-white py-12 sm:py-16 lg:py-20 px-4 sm:px-6">
+    <div class="max-w-7xl mx-auto">
+
+        <!-- Main Footer Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 lg:gap-12 mb-12">
+
+            <!-- Brand Column -->
+            <div class="col-span-2 md:col-span-4 lg:col-span-2">
+                <!-- Logo -->
+                <a href="/" class="inline-block mb-4">
+                    <span class="text-2xl sm:text-3xl font-bold tracking-tighter font-display">
+                        Skill<span class="text-primary">Main</span>
+                    </span>
+                </a>
+                <p class="text-gray-400 text-sm sm:text-base max-w-xs mb-6">
+                    Transforma tu carrera profesional con las habilidades más demandadas del mercado. Tu crecimiento es
+                    nuestra prioridad.
+                </p>
+                <!-- Social Links -->
+                <div class="flex gap-3">
+                    <a href="#"
+                        class="w-10 h-10 rounded-full bg-white/10 hover:bg-primary flex items-center justify-center transition-colors"
+                        aria-label="LinkedIn">
+                        <span class="material-icons-outlined text-lg">link</span>
+                    </a>
+                    <a href="#"
+                        class="w-10 h-10 rounded-full bg-white/10 hover:bg-primary flex items-center justify-center transition-colors"
+                        aria-label="Twitter">
+                        <span class="material-icons-outlined text-lg">tag</span>
+                    </a>
+                    <a href="#"
+                        class="w-10 h-10 rounded-full bg-white/10 hover:bg-primary flex items-center justify-center transition-colors"
+                        aria-label="Instagram">
+                        <span class="material-icons-outlined text-lg">photo_camera</span>
+                    </a>
+                    <a href="#"
+                        class="w-10 h-10 rounded-full bg-white/10 hover:bg-primary flex items-center justify-center transition-colors"
+                        aria-label="YouTube">
+                        <span class="material-icons-outlined text-lg">smart_display</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Plataforma -->
+            <div>
+                <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-white">Plataforma</h4>
+                <nav class="space-y-3">
+                    <button (click)="scrollTo('features')"
+                        class="block text-gray-400 hover:text-primary transition-colors text-sm">Beneficios</button>
+                    <button (click)="scrollTo('courses')"
+                        class="block text-gray-400 hover:text-primary transition-colors text-sm">Cursos</button>
+                    <button (click)="irAAuth()"
+                        class="block text-gray-400 hover:text-primary transition-colors text-sm">Precios</button>
+                    <button (click)="irAAuth()"
+                        class="block text-gray-400 hover:text-primary transition-colors text-sm">Para Empresas</button>
+                </nav>
+            </div>
+
+            <!-- Recursos -->
+            <div>
+                <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-white">Recursos</h4>
+                <nav class="space-y-3">
+                    <a href="#" class="block text-gray-400 hover:text-primary transition-colors text-sm">Blog</a>
+                    <a href="#" class="block text-gray-400 hover:text-primary transition-colors text-sm">Guías</a>
+                    <a href="#" class="block text-gray-400 hover:text-primary transition-colors text-sm">Webinars</a>
+                    <a href="#" class="block text-gray-400 hover:text-primary transition-colors text-sm">Podcast</a>
+                </nav>
+            </div>
+
+            <!-- Soporte -->
+            <div>
+                <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-white">Soporte</h4>
+                <nav class="space-y-3">
+                    <a href="#" class="block text-gray-400 hover:text-primary transition-colors text-sm">Centro de
+                        Ayuda</a>
+                    <a href="#" class="block text-gray-400 hover:text-primary transition-colors text-sm">Contacto</a>
+                    <a href="#" class="block text-gray-400 hover:text-primary transition-colors text-sm">FAQ</a>
+                    <a href="#" class="block text-gray-400 hover:text-primary transition-colors text-sm">Comunidad</a>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Bottom Bar -->
+        <div class="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p class="text-gray-500 text-sm text-center sm:text-left">
+                © {{ currentYear }} SkillMain. Todos los derechos reservados.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4 sm:gap-6 text-sm">
+                <a href="#" class="text-gray-500 hover:text-primary transition-colors">Términos</a>
+                <a href="#" class="text-gray-500 hover:text-primary transition-colors">Privacidad</a>
+                <a href="#" class="text-gray-500 hover:text-primary transition-colors">Cookies</a>
+            </div>
+        </div>
+    </div>
+</footer>

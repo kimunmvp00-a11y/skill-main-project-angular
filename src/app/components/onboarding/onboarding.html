@@ -1,0 +1,182 @@
+<!-- Contenedor principal -->
+<div class="onboarding-container">
+
+  <!-- Navbar compartida -->
+  <app-navbar></app-navbar>
+
+  <!-- Contenido principal -->
+  <main class="onboarding-main">
+    
+    <!-- Estado de carga -->
+    @if (cargando) {
+      <div class="loading-container">
+        <div class="loading-spinner"></div>
+        <h2 class="loading-text">Cargando tu información...</h2>
+        <p class="loading-subtitle">Un momento por favor</p>
+      </div>
+    }
+
+    <!-- Estado de error -->
+    @else if (error) {
+      <div class="error-container">
+        <div class="error-icon">❌</div>
+        <h2 class="error-title">Error al cargar datos</h2>
+        <p class="error-message">{{ error }}</p>
+        <button class="retry-btn" (click)="cargarDatosUsuario()" type="button">
+          🔄 Intentar de nuevo
+        </button>
+      </div>
+    }
+
+    <!-- Contenido principal cuando hay usuario -->
+    @else if (usuario) {
+      
+      <!-- Hero Section -->
+      <section class="hero-section">
+        <div class="hero-content">
+          <h1 class="hero-title">¡Bienvenido, {{ usuario.nombre || 'Usuario' }}! 🎉</h1>
+          <p class="hero-subtitle">Tu asistente de IA está listo para ayudarte en todo lo que necesites</p>
+          <div class="hero-decoration floating"></div>
+        </div>
+      </section>
+
+      <!-- Separador SVG curvo -->
+      <div class="section-divider">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+          <path d="M0,0V120H1200V0C1000,60 600,120 0,60Z" fill="var(--background-cream)"></path>
+        </svg>
+      </div>
+
+      <!-- Información del usuario -->
+      <section class="user-info-section">
+        <div class="section-container">
+          
+          <div class="info-grid">
+            
+            <!-- Tarjeta de perfil -->
+            <div class="info-card profile-card">
+              <div class="card-header">
+                <h3 class="card-title">👤 Tu Perfil</h3>
+              </div>
+              <div class="card-content">
+                <div class="profile-avatar">
+                  @if (usuario.fotoUrl) {
+                    <img [src]="usuario.fotoUrl" [alt]="usuario.nombre || 'Usuario'" class="profile-img">
+                  }@else {
+                    <div class="profile-placeholder">
+                      {{ obtenerIniciales(usuario.nombre) }}
+                    </div>
+                  }
+                </div>
+                <div class="profile-details">
+                  <h4 class="profile-name">{{ usuario.nombre || 'Usuario' }}</h4>
+                  <p class="profile-email">{{ usuario.email }}</p>
+                  <div class="profile-uid">
+                    <span class="uid-label">ID:</span>
+                    <code class="uid-value">{{ usuario.uid }}</code>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tarjeta de estadísticas -->
+            <div class="info-card stats-card">
+              <div class="card-header">
+                <h3 class="card-title">📊 Estadísticas</h3>
+              </div>
+              <div class="card-content">
+                <div class="stat-item">
+                  <div class="stat-icon">📅</div>
+                  <div class="stat-details">
+                    <span class="stat-label">Miembro desde</span>
+                    <span class="stat-value">{{ obtenerTiempoDesdeCreacion() }}</span>
+                  </div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-icon">🕐</div>
+                  <div class="stat-details">
+                    <span class="stat-label">Última conexión</span>
+                    <span class="stat-value">{{ formatearFecha(usuario.ultimaConexion) }}</span>
+                  </div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-icon">🎯</div>
+                  <div class="stat-details">
+                    <span class="stat-label">Estado</span>
+                    <span class="stat-value status-active">Activo</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Separador SVG curvo invertido -->
+      <div class="section-divider inverted">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+          <path d="M0,120V0H1200V120C1000,60 600,0 0,60Z" fill="var(--secondary)"></path>
+        </svg>
+      </div>
+
+      <!-- Sección de acciones rápidas -->
+      <section class="actions-section">
+        <div class="section-container">
+          
+          <h2 class="section-title">🚀 ¿Qué quieres hacer?</h2>
+          <p class="section-subtitle">Explora las funcionalidades disponibles para ti</p>
+
+          <div class="actions-grid">
+            
+            <!-- Acción: Ir al Chat -->
+            <div class="action-card chat-card">
+              <div class="action-icon">💬</div>
+              <h3 class="action-title">Comenzar a Chatear</h3>
+              <p class="action-description">Inicia una conversación con tu asistente de IA personalizado</p>
+              <button class="action-btn primary-btn" (click)="irAChat()" type="button">
+                Ir al Chat
+              </button>
+            </div>
+
+            <!-- Acción: Explorar funciones -->
+            <div class="action-card features-card">
+              <div class="action-icon">✨</div>
+              <h3 class="action-title">Explorar Funciones</h3>
+              <p class="action-description">Descubre todo lo que puedes hacer con nuestro asistente</p>
+              <button class="action-btn secondary-btn" disabled type="button">
+                Próximamente
+              </button>
+            </div>
+
+            <!-- Acción: Configuración -->
+            <div class="action-card settings-card">
+              <div class="action-icon">⚙️</div>
+              <h3 class="action-title">Configuración</h3>
+              <p class="action-description">Personaliza tu experiencia y ajusta tus preferencias</p>
+              <button class="action-btn secondary-btn" disabled type="button">
+                Próximamente
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="onboarding-footer">
+        <div class="footer-content">
+          <p class="footer-text">
+            ¡Gracias por unirte a nosotros! 🎊 
+            <strong>Estamos emocionados de acompañarte en esta experiencia.</strong>
+          </p>
+        </div>
+      </footer>
+
+    }
+
+  </main>
+
+</div>

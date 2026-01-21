@@ -1,0 +1,58 @@
+<!-- Navbar de navegación protegida -->
+<nav class="protected-navbar">
+  <div class="navbar-content">
+    
+    <!-- Logo y título -->
+    <div class="navbar-brand">
+      <div class="brand-icon floating">💬</div>
+      <span class="brand-text">Chat AI</span>
+    </div>
+
+    <!-- Navegación principal -->
+    <div class="navbar-nav">
+      <button 
+        class="nav-item"
+        [class.active]="estaActiva('/onboarding')"
+        (click)="irAOnboarding()"
+        type="button">
+        📋 Bienvenida
+      </button>
+      <button 
+        class="nav-item"
+        [class.active]="estaActiva('/chat')"
+        (click)="irAChat()"
+        type="button">
+        💬 Chat
+      </button>
+    </div>
+
+    <!-- Usuario y acciones -->
+    <div class="navbar-user">
+      @if (usuario) {
+        <div class="user-info">
+          <div class="user-avatar">
+            @if (usuario.fotoUrl) {
+              <img [src]="usuario.fotoUrl" [alt]="usuario.nombre || 'Usuario'" class="avatar-img">
+            }@else {
+              <span class="avatar-initials">{{ obtenerIniciales(usuario.nombre) }}</span>
+            }
+          </div>
+          <span class="user-name">{{ usuario.nombre || 'Usuario' }}</span>
+        </div>
+        <button 
+          class="logout-btn"
+          (click)="cerrarSesion()"
+          type="button"
+          title="Cerrar sesión">
+          🚪
+        </button>
+      }@else {
+        <div class="user-skeleton">
+          <div class="skeleton-avatar"></div>
+          <div class="skeleton-name"></div>
+        </div>
+      }
+    </div>
+
+  </div>
+</nav>
