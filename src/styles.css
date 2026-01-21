@@ -1,23 +1,56 @@
+@import "tailwindcss";
+
+/* SkillMain Design System Theme */
+@theme {
+  --color-primary: #ff5734;
+  --color-background-light: #f7f7f5;
+  --color-background-dark: #151313;
+  --color-accent-purple: #be94f5;
+  --color-accent-yellow: #fccc42;
+  --color-accent-dark: #151313;
+  --color-card-yellow: #fccc42;
+  --color-card-purple: #be94f5;
+  --color-card-blue: #b2e3f9;
+  --color-dark-gray: #1c1c1c;
+
+  --font-display: "Kodchasan", sans-serif;
+  --font-body: "Inter", sans-serif;
+
+  --radius-custom: 24px;
+  --radius-4xl: 40px;
+}
+
 /* SkillMain Global Styles */
 
-/* Smooth scrolling */
+/* Base layer styles */
 html {
   scroll-behavior: smooth;
 }
 
-/* Base body styles */
 body {
-  font-family: 'Inter', sans-serif;
-  background-color: #f7f7f5;
-  color: #151313;
+  font-family: var(--font-body);
+  background-color: var(--color-background-light);
+  color: var(--color-accent-dark);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Display font for headings */
-h1, h2, h3, h4, h5, h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
 .font-display {
-  font-family: 'Kodchasan', sans-serif;
+  font-family: var(--font-display);
+}
+
+/* Text gradient utility */
+.text-gradient {
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(to right, var(--color-primary), var(--color-accent-purple));
 }
 
 /* Custom scrollbar */
@@ -52,15 +85,20 @@ h1, h2, h3, h4, h5, h6,
 
 /* Blob animation keyframes */
 @keyframes blob {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translate(0, 0) scale(1);
   }
+
   25% {
     transform: translate(20px, -30px) scale(1.1);
   }
+
   50% {
     transform: translate(-20px, 20px) scale(0.9);
   }
+
   75% {
     transform: translate(30px, 10px) scale(1.05);
   }
@@ -84,6 +122,7 @@ h1, h2, h3, h4, h5, h6,
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -95,7 +134,18 @@ h1, h2, h3, h4, h5, h6,
 }
 
 /* Stagger animations */
-.stagger-1 { animation-delay: 0.1s; }
-.stagger-2 { animation-delay: 0.2s; }
-.stagger-3 { animation-delay: 0.3s; }
-.stagger-4 { animation-delay: 0.4s; }
+.stagger-1 {
+  animation-delay: 0.1s;
+}
+
+.stagger-2 {
+  animation-delay: 0.2s;
+}
+
+.stagger-3 {
+  animation-delay: 0.3s;
+}
+
+.stagger-4 {
+  animation-delay: 0.4s;
+}
