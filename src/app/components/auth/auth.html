@@ -162,22 +162,31 @@
           </div>
           }
 
-          <!-- Email y Password en dos columnas (desktop) para registro -->
+          <!-- Email full-width para registro -->
           @if (modoFormulario === 'registro') {
-          <div class="grid md:grid-cols-2 gap-4">
-            <!-- Email -->
-            <div>
-              <label for="email" class="block text-sm font-medium text-gray-700 mb-1.5">Correo electrónico</label>
-              <input type="email" id="email" name="email" [(ngModel)]="email" placeholder="tu@ejemplo.com"
-                [disabled]="autenticandoEmail" required
-                class="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none disabled:bg-gray-100 disabled:cursor-not-allowed">
-            </div>
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-700 mb-1.5">Correo electrónico</label>
+            <input type="email" id="email" name="email" [(ngModel)]="email" placeholder="tu@ejemplo.com"
+              [disabled]="autenticandoEmail" required
+              class="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none disabled:bg-gray-100 disabled:cursor-not-allowed">
+          </div>
 
+          <!-- Password y Confirmar Password en dos columnas -->
+          <div class="grid md:grid-cols-2 gap-4">
             <!-- Password -->
             <div>
               <label for="password" class="block text-sm font-medium text-gray-700 mb-1.5">Contraseña</label>
               <input type="password" id="password" name="password" [(ngModel)]="password"
                 placeholder="Mínimo 6 caracteres" [disabled]="autenticandoEmail" minlength="6" required
+                class="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none disabled:bg-gray-100 disabled:cursor-not-allowed">
+            </div>
+
+            <!-- Confirmar Password -->
+            <div>
+              <label for="confirmarPassword" class="block text-sm font-medium text-gray-700 mb-1.5">Confirmar
+                contraseña</label>
+              <input type="password" id="confirmarPassword" name="confirmarPassword" [(ngModel)]="confirmarPassword"
+                placeholder="Confirma tu contraseña" [disabled]="autenticandoEmail" required
                 class="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none disabled:bg-gray-100 disabled:cursor-not-allowed">
             </div>
           </div>
@@ -206,10 +215,11 @@
           <div class="grid md:grid-cols-2 gap-4">
             <!-- Género -->
             <div>
-              <label for="genero" class="block text-sm font-medium text-gray-700 mb-1.5">Género</label>
-              <select id="genero" name="genero" [(ngModel)]="genero" [disabled]="autenticandoEmail" required
+              <label for="genero" class="block text-sm font-medium text-gray-700 mb-1.5">Género <span
+                  class="text-gray-400 text-xs">(opcional)</span></label>
+              <select id="genero" name="genero" [(ngModel)]="genero" [disabled]="autenticandoEmail"
                 class="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none disabled:bg-gray-100 disabled:cursor-not-allowed">
-                <option value="" disabled selected>Selecciona</option>
+                <option value="" selected>Selecciona</option>
                 <option value="masculino">Masculino</option>
                 <option value="femenino">Femenino</option>
                 <option value="otro">Otro</option>
@@ -219,21 +229,22 @@
 
             <!-- Edad -->
             <div>
-              <label for="edad" class="block text-sm font-medium text-gray-700 mb-1.5">Edad</label>
+              <label for="edad" class="block text-sm font-medium text-gray-700 mb-1.5">Edad <span
+                  class="text-gray-400 text-xs">(opcional)</span></label>
               <input type="number" id="edad" name="edad" [(ngModel)]="edad" placeholder="Ej: 25"
-                [disabled]="autenticandoEmail" min="18" max="100" required
+                [disabled]="autenticandoEmail" min="18" max="100"
                 class="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none disabled:bg-gray-100 disabled:cursor-not-allowed">
             </div>
           </div>
 
           <!-- Situación laboral (solo registro) -->
           <div>
-            <label for="situacionLaboral" class="block text-sm font-medium text-gray-700 mb-1.5">Situación
-              laboral</label>
+            <label for="situacionLaboral" class="block text-sm font-medium text-gray-700 mb-1.5">Situación laboral <span
+                class="text-gray-400 text-xs">(opcional)</span></label>
             <select id="situacionLaboral" name="situacionLaboral" [(ngModel)]="situacionLaboral"
-              [disabled]="autenticandoEmail" required
+              [disabled]="autenticandoEmail"
               class="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none disabled:bg-gray-100 disabled:cursor-not-allowed">
-              <option value="" disabled selected>¿Cuál es tu estado actual?</option>
+              <option value="" selected>¿Cuál es tu estado actual?</option>
               <option value="empleado">Empleado</option>
               <option value="desempleado">Desempleado</option>
               <option value="freelance">Freelance</option>
@@ -241,15 +252,6 @@
               <option value="estudiante">Estudiante</option>
               <option value="jubilado">Jubilado</option>
             </select>
-          </div>
-
-          <!-- Confirmar contraseña (solo registro) -->
-          <div>
-            <label for="confirmarPassword" class="block text-sm font-medium text-gray-700 mb-1.5">Confirmar
-              contraseña</label>
-            <input type="password" id="confirmarPassword" name="confirmarPassword" [(ngModel)]="confirmarPassword"
-              placeholder="Confirma tu contraseña" [disabled]="autenticandoEmail" required
-              class="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none disabled:bg-gray-100 disabled:cursor-not-allowed">
           </div>
           }
 
