@@ -12,6 +12,7 @@ import {
 } from '@angular/fire/auth';
 import { map } from 'rxjs/operators';
 import { Usuario } from '../models/usuario';
+import { FirestoreService } from './firestore';
 
 @Injectable({
   // Hacemos que este servicio esté disponible en toda la aplicación
@@ -20,13 +21,14 @@ import { Usuario } from '../models/usuario';
 export class AuthService {
 
   private auth = inject(Auth);
+  private firestoreService = inject(FirestoreService);
 
   // Creamos un Observable que nos permite saber si hay un usuario autenticado
   // Este Observable emite cada vez que cambia el estado de autenticación
   usuario$ = user(this.auth).pipe(
     map(usuarioFirebase => {
       if (!usuarioFirebase) return null;
-      
+
       const usuario: Usuario = {
         uid: usuarioFirebase.uid,
         email: usuarioFirebase.email || '',
@@ -35,7 +37,7 @@ export class AuthService {
         fechaCreacion: new Date(), // Se sobrescribe si existe en Firestore
         ultimaConexion: new Date()
       };
-      
+
       return usuario;
     })
   );
@@ -110,9 +112,19 @@ export class AuthService {
    * @param email - Email del usuario
    * @param password - Password del usuario
    * @param nombre - Nombre del usuario (opcional)
+   * @param genero - Género del usuario (opcional)
+   * @param edad - Edad del usuario (opcional)
+   * @param situacionLaboral - Situación laboral del usuario (opcional)
    * @returns Usuario creado o null
    */
-  async registrarConEmail(email: string, password: string, nombre?: string): Promise<Usuario | null> {
+  async registrarConEmail(
+    email: string,
+    password: string,
+    nombre?: string,
+    genero?: string,
+    edad?: string,
+    situacionLaboral?: string
+  ): Promise<Usuario | null> {
     try {
       // Crear usuario con email y password
       const resultado = await createUserWithEmailAndPassword(this.auth, email, password);
@@ -130,10 +142,32 @@ export class AuthService {
           uid: usuarioFirebase.uid,
           email: usuarioFirebase.email || email,
           nombre: nombre || usuarioFirebase.displayName || 'Usuario',
-          fotoUrl: usuarioFirebase.photoURL || undefined,
           fechaCreacion: new Date(),
           ultimaConexion: new Date()
         };
+
+        // Agregar campos opcionales solo si tienen valor (Firestore no acepta undefined)
+        if (usuarioFirebase.photoURL) {
+          usuario.fotoUrl = usuarioFirebase.photoURL;
+        }
+        if (genero) {
+          usuario.genero = genero;
+        }
+        if (edad) {
+          usuario.edad = parseInt(edad);
+        }
+        if (situacionLaboral) {
+          usuario.situacionLaboral = situacionLaboral;
+        }
+
+        // Guardar datos adicionales en Firestore usando el UID como ID del documento
+        try {
+          await this.firestoreService.guardarDocumentoConId('usuarios', usuarioFirebase.uid, usuario);
+          console.log('✅ Datos de usuario guardados en Firestore');
+        } catch (firestoreError) {
+          console.error('❌ Error al guardar en Firestore:', firestoreError);
+          // No lanzamos el error para no bloquear el registro, pero lo registramos
+        }
 
         return usuario;
       }

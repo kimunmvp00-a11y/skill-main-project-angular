@@ -17,17 +17,20 @@ export class Auth {
   private router = inject(Router);
   autenticando = false;
   mensajeError = '';
-  
+
   // Estado del formulario
   modoFormulario: 'login' | 'registro' = 'login';
   mostrarFormularioEmail = false;
-  
+
   // Datos del formulario
   email = '';
   password = '';
   nombre = '';
   confirmarPassword = '';
-  
+  genero = '';
+  edad = '';
+  situacionLaboral = '';
+
   // Estados de carga específicos
   autenticandoGoogle = false;
   autenticandoEmail = false;
@@ -36,21 +39,21 @@ export class Auth {
     this.mensajeError = '';
     this.autenticandoGoogle = true;
     this.autenticando = true;
-    
+
     try {
       const usuario = await this.authService.iniciarSesionConGoogle();
-     
+
       if (usuario) {
         await this.router.navigate(['/chat']);
-        
+
       } else {
         this.mensajeError = 'No se pudo obtener la información del usuario';
         console.error('❌ No se obtuvo información del usuario');
       }
-      
+
     } catch (error: any) {
       console.error('❌ Error durante la autenticación:', error);
-      
+
       if (error.code === 'auth/popup-closed-by-user') {
         this.mensajeError = 'Has cerrado la ventana de autenticación. Intenta de nuevo.';
       } else if (error.code === 'auth/popup-blocked') {
@@ -60,7 +63,7 @@ export class Auth {
       } else {
         this.mensajeError = 'Error al iniciar sesión. Por favor intenta de nuevo.';
       }
-      
+
     } finally {
       this.autenticandoGoogle = false;
       this.autenticando = false;
@@ -88,6 +91,9 @@ export class Auth {
     this.password = '';
     this.nombre = '';
     this.confirmarPassword = '';
+    this.genero = '';
+    this.edad = '';
+    this.situacionLaboral = '';
   }
 
   validarFormulario(): boolean {
@@ -106,7 +112,7 @@ export class Auth {
         this.mensajeError = 'El nombre es obligatorio para el registro';
         return false;
       }
-      
+
       if (this.password !== this.confirmarPassword) {
         this.mensajeError = 'Las contraseñas no coinciden';
         return false;
@@ -129,7 +135,14 @@ export class Auth {
       let usuario;
 
       if (this.modoFormulario === 'registro') {
-        usuario = await this.authService.registrarConEmail(this.email, this.password, this.nombre);
+        usuario = await this.authService.registrarConEmail(
+          this.email,
+          this.password,
+          this.nombre,
+          this.genero,
+          this.edad,
+          this.situacionLaboral
+        );
       } else {
         usuario = await this.authService.iniciarSesionConEmail(this.email, this.password);
       }
@@ -143,7 +156,7 @@ export class Auth {
     } catch (error: any) {
       console.error('❌ Error en formulario email:', error);
       this.manejarErrorEmail(error);
-      
+
     } finally {
       this.autenticandoEmail = false;
       this.autenticando = false;

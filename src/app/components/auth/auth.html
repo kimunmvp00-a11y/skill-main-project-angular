@@ -1,31 +1,82 @@
-<!-- Contenedor principal con diseño responsivo -->
-<div class="auth-container">
+<!-- Container principal con layout split-screen -->
+<div class="min-h-screen bg-background-light grid lg:grid-cols-2">
 
-  <!-- Tarjeta principal de autenticación -->
-  <div class="auth-card">
-    
-    <!-- Background decorativo para pantallas grandes -->
-    <div class="auth-background-decoration"></div>
+  <!-- Panel Hero/Branding (Izquierda en desktop, Top en mobile) -->
+  <div
+    class="hidden lg:flex flex-col justify-center items-center bg-gradient-to-br from-background-light via-white to-accent-purple/10 p-12 relative overflow-hidden">
 
-    <!-- Encabezado con logo y título -->
-    <div class="auth-header">
-      <div class="auth-icon floating">💬</div>
-      <h1 class="auth-title">Bienvenido al Chat</h1>
-      <p class="auth-subtitle">Conecta con tu asistente de IA personalizado</p>
+    <!-- Blobs decorativos animados -->
+    <div
+      class="absolute top-20 left-10 w-64 h-64 bg-accent-yellow/20 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob">
+    </div>
+    <div
+      class="absolute top-40 right-10 w-64 h-64 bg-accent-purple/20 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000">
+    </div>
+    <div
+      class="absolute -bottom-8 left-20 w-64 h-64 bg-primary/20 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000">
     </div>
 
-    <!-- Contenido principal -->
-    <div class="auth-content">
+    <!-- Contenido del hero -->
+    <div class="relative z-10 max-w-md text-center">
+      <!-- Logo -->
+      <div class="mb-8">
+        <h1 class="text-4xl font-bold font-display tracking-tight">
+          Skill<span class="text-primary">Main</span>
+        </h1>
+      </div>
 
-      <!-- Botones de autenticación -->
-      <div class="auth-actions">
+      <!-- Headline motivacional -->
+      <h2 class="text-3xl font-bold font-display text-accent-dark mb-4 leading-tight">
+        Impulsa tu <span class="text-primary">crecimiento</span> profesional
+      </h2>
+
+      <p class="text-lg text-gray-600 mb-8">
+        Accede a herramientas y acompañamiento personalizado para tu reskilling y upskilling.
+      </p>
+
+      <!-- Decoración con iconos -->
+      <div class="flex justify-center gap-6 text-4xl opacity-60">
+        <span class="animate-float">📚</span>
+        <span class="animate-float" style="animation-delay: 0.5s">🎯</span>
+        <span class="animate-float" style="animation-delay: 1s">🚀</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Panel de Autenticación (Derecha en desktop, Full en mobile) -->
+  <div class="flex items-center justify-center p-6 sm:p-8 lg:p-12">
+    <div class="w-full max-w-md">
+
+      <!-- Logo mobile (solo visible en mobile) -->
+      <div class="lg:hidden text-center mb-8">
+        <h1 class="text-3xl font-bold font-display tracking-tight">
+          Skill<span class="text-primary">Main</span>
+        </h1>
+        <p class="text-sm text-gray-600 mt-2">Impulsa tu crecimiento profesional</p>
+      </div>
+
+      <!-- Título de bienvenida -->
+      <div class="mb-8">
+        <h2 class="text-2xl sm:text-3xl font-bold font-display text-accent-dark mb-2">
+          ¡Bienvenido!
+        </h2>
+        <p class="text-gray-600">
+          Inicia sesión para acceder a tu cuenta
+        </p>
+      </div>
+
+      <!-- Contenedor de autenticación -->
+      <div class="space-y-4">
+
         <!-- Botón de Google -->
-        <button class="google-btn" (click)="iniciarSesionConGoogle()" [disabled]="autenticando"
-          [class.loading]="autenticandoGoogle">
+        <button
+          class="w-full flex items-center justify-center gap-3 px-6 py-3 bg-white border-2 border-gray-200 rounded-custom font-medium text-gray-700 hover:border-primary hover:bg-gray-50 hover:shadow-lg hover:-translate-y-0.5 transition-all disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+          (click)="iniciarSesionConGoogle()" [disabled]="autenticando" [class.border-primary]="autenticandoGoogle"
+          [class.bg-primary/5]="autenticandoGoogle">
 
           <!-- Icono de Google -->
           @if (!autenticandoGoogle) {
-          <span class="google-icon">
+          <span class="flex-shrink-0">
             <svg width="20" height="20" viewBox="0 0 24 24">
               <path fill="#4285F4"
                 d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -37,94 +88,158 @@
                 d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
             </svg>
           </span>
-          }@else {
-          <span class="spinner"></span>
+          } @else {
+          <span class="spinner w-5 h-5 border-2 border-primary/30 border-t-primary rounded-full"></span>
           }
 
-          <!-- Texto del botón -->
-          <span class="btn-text">
-            {{ autenticandoGoogle ? 'Iniciando sesión...' : 'Continuar con Google' }}
-          </span>
+          <span>{{ autenticandoGoogle ? 'Iniciando sesión...' : 'Continuar con Google' }}</span>
         </button>
 
         <!-- Divisor -->
-        <div class="divider">
-          <span class="divider-text">o</span>
+        <div class="relative my-6">
+          <div class="absolute inset-0 flex items-center">
+            <div class="w-full border-t border-gray-200"></div>
+          </div>
+          <div class="relative flex justify-center text-sm">
+            <span class="px-4 bg-background-light text-gray-500 font-medium">o</span>
+          </div>
         </div>
 
         <!-- Botón para mostrar formulario de email -->
-        <button class="email-toggle-btn" (click)="toggleFormularioEmail()" [disabled]="autenticando" type="button">
+        <button
+          class="w-full px-6 py-3 bg-primary/10 border-2 border-primary rounded-custom font-bold text-primary hover:bg-primary hover:text-white hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-0.5 transition-all disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+          (click)="toggleFormularioEmail()" [disabled]="autenticando" type="button">
           @if (!mostrarFormularioEmail) {
-          📧 Usar email y contraseña
-          }@else {
-          🔙 Volver a opciones principales
+          <span class="flex items-center justify-center gap-2">
+            <span class="material-icons-outlined text-xl">email</span>
+            <span>Usar email y contraseña</span>
+          </span>
+          } @else {
+          <span class="flex items-center justify-center gap-2">
+            <span class="material-icons-outlined text-xl">arrow_back</span>
+            <span>Volver a opciones principales</span>
+          </span>
           }
         </button>
 
         <!-- Formulario de email/password -->
         @if (mostrarFormularioEmail) {
-        <form class="email-form" (ngSubmit)="procesarFormularioEmail()" #emailForm="ngForm">
+        <form class="mt-6 bg-white p-6 rounded-custom border-2 border-primary/20 shadow-sm animate-fade-in-up"
+          (ngSubmit)="procesarFormularioEmail()" #emailForm="ngForm">
 
           <!-- Título del formulario -->
-          <h3 class="form-title">
-            {{ modoFormulario === 'login' ? '🔑 Iniciar Sesión' : '📝 Crear Cuenta' }}
+          <h3 class="text-xl font-bold font-display text-accent-dark mb-4 flex items-center gap-2">
+            @if (modoFormulario === 'login') {
+            <span class="material-icons-outlined text-primary">lock</span>
+            <span>Iniciar Sesión</span>
+            } @else {
+            <span class="material-icons-outlined text-primary">person_add</span>
+            <span>Crear Cuenta</span>
+            }
           </h3>
 
           <!-- Campo de nombre (solo para registro) -->
           @if (modoFormulario === 'registro') {
-          <div class="form-group">
-            <label for="nombre">Nombre completo</label>
+          <div class="mb-4">
+            <label for="nombre" class="block text-sm font-semibold text-gray-700 mb-1.5">Nombre completo</label>
             <input type="text" id="nombre" name="nombre" [(ngModel)]="nombre" placeholder="Ingresa tu nombre completo"
-              [disabled]="autenticandoEmail" required>
+              [disabled]="autenticandoEmail" required
+              class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-custom focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none disabled:bg-gray-100 disabled:cursor-not-allowed">
+          </div>
+
+          <!-- Campo de género (solo para registro) -->
+          <div class="mb-4">
+            <label for="genero" class="block text-sm font-semibold text-gray-700 mb-1.5">Género</label>
+            <select id="genero" name="genero" [(ngModel)]="genero" [disabled]="autenticandoEmail" required
+              class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-custom focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none disabled:bg-gray-100 disabled:cursor-not-allowed">
+              <option value="" disabled selected>Selecciona tu género</option>
+              <option value="masculino">Masculino</option>
+              <option value="femenino">Femenino</option>
+              <option value="otro">Otro</option>
+              <option value="prefiero-no-decir">Prefiero no decir</option>
+            </select>
+          </div>
+
+          <!-- Campo de edad (solo para registro) -->
+          <div class="mb-4">
+            <label for="edad" class="block text-sm font-semibold text-gray-700 mb-1.5">Edad</label>
+            <input type="number" id="edad" name="edad" [(ngModel)]="edad" placeholder="Ingresa tu edad"
+              [disabled]="autenticandoEmail" min="18" max="100" required
+              class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-custom focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none disabled:bg-gray-100 disabled:cursor-not-allowed">
+          </div>
+
+          <!-- Campo de situación laboral (solo para registro) -->
+          <div class="mb-4">
+            <label for="situacionLaboral" class="block text-sm font-semibold text-gray-700 mb-1.5">Situación
+              laboral</label>
+            <select id="situacionLaboral" name="situacionLaboral" [(ngModel)]="situacionLaboral"
+              [disabled]="autenticandoEmail" required
+              class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-custom focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none disabled:bg-gray-100 disabled:cursor-not-allowed">
+              <option value="" disabled selected>Selecciona tu situación</option>
+              <option value="empleado">Empleado</option>
+              <option value="desempleado">Desempleado</option>
+              <option value="freelance">Freelance</option>
+              <option value="emprendedor">Emprendedor</option>
+              <option value="estudiante">Estudiante</option>
+              <option value="jubilado">Jubilado</option>
+            </select>
           </div>
           }
 
           <!-- Campo de email -->
-          <div class="form-group">
-            <label for="email">Email</label>
+          <div class="mb-4">
+            <label for="email" class="block text-sm font-semibold text-gray-700 mb-1.5">Email</label>
             <input type="email" id="email" name="email" [(ngModel)]="email" placeholder="ejemplo@correo.com"
-              [disabled]="autenticandoEmail" required>
+              [disabled]="autenticandoEmail" required
+              class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-custom focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none disabled:bg-gray-100 disabled:cursor-not-allowed">
           </div>
 
           <!-- Campo de contraseña -->
-          <div class="form-group">
-            <label for="password">Contraseña</label>
+          <div class="mb-4">
+            <label for="password" class="block text-sm font-semibold text-gray-700 mb-1.5">Contraseña</label>
             <input type="password" id="password" name="password" [(ngModel)]="password"
-              placeholder="Mínimo 6 caracteres" [disabled]="autenticandoEmail" minlength="6" required>
+              placeholder="Mínimo 6 caracteres" [disabled]="autenticandoEmail" minlength="6" required
+              class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-custom focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none disabled:bg-gray-100 disabled:cursor-not-allowed">
           </div>
 
           <!-- Campo de confirmar contraseña (solo para registro) -->
           @if (modoFormulario === 'registro') {
-          <div class="form-group">
-            <label for="confirmarPassword">Confirmar contraseña</label>
+          <div class="mb-4">
+            <label for="confirmarPassword" class="block text-sm font-semibold text-gray-700 mb-1.5">Confirmar
+              contraseña</label>
             <input type="password" id="confirmarPassword" name="confirmarPassword" [(ngModel)]="confirmarPassword"
-              placeholder="Confirma tu contraseña" [disabled]="autenticandoEmail" required>
+              placeholder="Confirma tu contraseña" [disabled]="autenticandoEmail" required
+              class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-custom focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none disabled:bg-gray-100 disabled:cursor-not-allowed">
           </div>
           }
 
           <!-- Botón de envío -->
-          <button type="submit" class="form-submit-btn" [disabled]="autenticandoEmail || !emailForm.valid"
-            [class.loading]="autenticandoEmail">
+          <button type="submit"
+            class="w-full px-6 py-3 bg-gradient-to-r from-primary to-primary/90 text-white rounded-custom font-bold hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5 transition-all disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0 flex items-center justify-center gap-2"
+            [disabled]="autenticandoEmail || !emailForm.valid" [class.opacity-75]="autenticandoEmail">
 
             @if (!autenticandoEmail) {
-            <span>{{ modoFormulario === 'login' ? '🔑 Iniciar Sesión' : '📝 Crear Cuenta' }}</span>
-            }@else {
-            <span class="spinner"></span>
+            <span class="material-icons-outlined">{{ modoFormulario === 'login' ? 'lock' : 'person_add' }}</span>
+            <span>{{ modoFormulario === 'login' ? 'Iniciar Sesión' : 'Crear Cuenta' }}</span>
+            } @else {
+            <span class="spinner w-5 h-5 border-2 border-white/30 border-t-white rounded-full"></span>
             <span>{{ modoFormulario === 'login' ? 'Iniciando sesión...' : 'Creando cuenta...' }}</span>
             }
           </button>
 
           <!-- Enlace para cambiar modo -->
-          <div class="form-mode-toggle">
+          <div class="mt-4 text-center text-sm text-gray-600">
             @if (modoFormulario === 'login') {
             <span>¿No tienes cuenta?
-              <button type="button" class="link-btn" (click)="cambiarModoFormulario()" [disabled]="autenticandoEmail">
+              <button type="button" class="text-primary font-semibold hover:underline" (click)="cambiarModoFormulario()"
+                [disabled]="autenticandoEmail">
                 Crear una nueva
               </button>
             </span>
-            }@else {
+            } @else {
             <span>¿Ya tienes cuenta?
-              <button type="button" class="link-btn" (click)="cambiarModoFormulario()" [disabled]="autenticandoEmail">
+              <button type="button" class="text-primary font-semibold hover:underline" (click)="cambiarModoFormulario()"
+                [disabled]="autenticandoEmail">
                 Iniciar sesión
               </button>
             </span>
@@ -136,29 +251,24 @@
 
         <!-- Mensaje de error si existe -->
         @if (mensajeError) {
-        <div class="error-message">
-          ❌ {{ mensajeError }}
+        <div class="mt-4 p-4 bg-red-50 border-2 border-red-200 rounded-custom animate-fade-in-up">
+          <div class="flex items-start gap-3">
+            <span class="material-icons-outlined text-red-600 flex-shrink-0">error</span>
+            <p class="text-sm font-medium text-red-800">{{ mensajeError }}</p>
+          </div>
         </div>
         }
-      </div>
 
-      <!-- Información adicional -->
-      <div class="info-section">
-        <p class="info-text">
-          Al continuar, aceptas que utilizamos Google para autenticarte de forma segura.
-          No almacenamos tu contraseña.
-        </p>
+        <!-- Información adicional -->
+        <div class="mt-6 text-center">
+          <p class="text-xs text-gray-500 leading-relaxed">
+            Al continuar, aceptas que utilizamos Google para autenticarte de forma segura. No almacenamos tu contraseña.
+          </p>
+        </div>
+
       </div>
 
     </div>
-
-    <!-- Footer -->
-    <div class="auth-footer">
-      <p>
-        Desarrollado por <strong>Sergie Code</strong> 🚀<br>
-        <small>Tutorial Angular 20 + Firebase + ChatGPT</small>
-      </p>
-    </div>
-
   </div>
+
 </div>
