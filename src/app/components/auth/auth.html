@@ -1,45 +1,54 @@
 <!-- Container principal con layout split-screen -->
-<div class="min-h-screen bg-background-light grid lg:grid-cols-2">
+<div class="min-h-screen bg-background-light grid lg:grid-cols-[40%_60%]">
 
-  <!-- Panel Hero/Branding (Izquierda en desktop, Top en mobile) -->
-  <div
-    class="hidden lg:flex flex-col justify-center items-center bg-gradient-to-br from-background-light via-white to-accent-purple/10 p-12 relative overflow-hidden">
+  <!-- Panel Hero/Branding (Izquierda en desktop, Oculto en mobile) -->
+  <div class="hidden lg:flex flex-col justify-between bg-dark-gray p-12 relative overflow-hidden">
 
-    <!-- Blobs decorativos animados -->
-    <div
-      class="absolute top-20 left-10 w-64 h-64 bg-accent-yellow/20 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob">
-    </div>
-    <div
-      class="absolute top-40 right-10 w-64 h-64 bg-accent-purple/20 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000">
-    </div>
-    <div
-      class="absolute -bottom-8 left-20 w-64 h-64 bg-primary/20 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000">
-    </div>
-
-    <!-- Contenido del hero -->
-    <div class="relative z-10 max-w-md text-center">
-      <!-- Logo -->
-      <div class="mb-8">
-        <h1 class="text-4xl font-bold font-display tracking-tight">
+    <!-- Logo -->
+    <div class="relative z-10">
+      <div class="flex items-center gap-2 mb-12">
+        <span class="material-icons-outlined text-primary text-3xl">rocket_launch</span>
+        <h1 class="text-2xl font-bold font-display text-white tracking-tight">
           Skill<span class="text-primary">Main</span>
         </h1>
       </div>
+    </div>
 
-      <!-- Headline motivacional -->
-      <h2 class="text-3xl font-bold font-display text-accent-dark mb-4 leading-tight">
-        Impulsa tu <span class="text-primary">crecimiento</span> profesional
+    <!-- Contenido central del hero -->
+    <div class="relative z-10 max-w-md">
+      @if (!mostrarFormularioEmail || modoFormulario === 'login') {
+      <!-- Texto para Login -->
+      <h2 class="text-4xl font-bold font-display text-white mb-4 leading-tight">
+        Bienvenido de<br>nuevo
       </h2>
-
-      <p class="text-lg text-gray-600 mb-8">
-        Accede a herramientas y acompañamiento personalizado para tu reskilling y upskilling.
+      <p class="text-gray-400 text-lg leading-relaxed">
+        Continúa tu camino hacia la maestría profesional y alcanza tus metas.
       </p>
+      } @else {
+      <!-- Texto para Registro -->
+      <h2 class="text-4xl font-bold font-display text-white mb-4 leading-tight">
+        Únete a la<br>comunidad de<br>
+        <span class="text-accent-yellow">crecimiento</span>
+      </h2>
+      <p class="text-gray-400 text-lg leading-relaxed">
+        Gestiona tu upskilling y haz de tu desarrollo profesional tu mejor estrategia para el éxito.
+      </p>
+      }
+    </div>
 
-      <!-- Decoración con iconos -->
-      <div class="flex justify-center gap-6 text-4xl opacity-60">
-        <span class="animate-float">📚</span>
-        <span class="animate-float" style="animation-delay: 0.5s">🎯</span>
-        <span class="animate-float" style="animation-delay: 1s">🚀</span>
+    <!-- Avatares y contador -->
+    <div class="relative z-10 flex items-center gap-3">
+      <div class="flex -space-x-3">
+        <img src="/assets/avatars/avatar-1.png" alt="Usuario"
+          class="w-10 h-10 rounded-full border-2 border-dark-gray object-cover">
+        <img src="/assets/avatars/avatar-2.png" alt="Usuario"
+          class="w-10 h-10 rounded-full border-2 border-dark-gray object-cover">
+        <img src="/assets/avatars/avatar-3.png" alt="Usuario"
+          class="w-10 h-10 rounded-full border-2 border-dark-gray object-cover">
       </div>
+      <p class="text-xs text-gray-400">
+        Únete a más de <span class="font-semibold text-white">25K</span> profesionales
+      </p>
     </div>
   </div>
 
@@ -49,20 +58,38 @@
 
       <!-- Logo mobile (solo visible en mobile) -->
       <div class="lg:hidden text-center mb-8">
-        <h1 class="text-3xl font-bold font-display tracking-tight">
-          Skill<span class="text-primary">Main</span>
-        </h1>
-        <p class="text-sm text-gray-600 mt-2">Impulsa tu crecimiento profesional</p>
+        <div class="flex items-center justify-center gap-2 mb-2">
+          <span class="material-icons-outlined text-primary text-2xl">rocket_launch</span>
+          <h1 class="text-2xl font-bold font-display tracking-tight">
+            Skill<span class="text-primary">Main</span>
+          </h1>
+        </div>
       </div>
 
       <!-- Título de bienvenida -->
-      <div class="mb-8">
-        <h2 class="text-2xl sm:text-3xl font-bold font-display text-accent-dark mb-2">
-          ¡Bienvenido!
+      <div class="mb-6">
+        @if (!mostrarFormularioEmail) {
+        <h2 class="text-2xl font-bold font-display text-accent-dark mb-1">
+          Bienvenido
         </h2>
-        <p class="text-gray-600">
-          Inicia sesión para acceder a tu cuenta
+        <p class="text-gray-600 text-sm">
+          Elige cómo deseas continuar
         </p>
+        } @else if (modoFormulario === 'login') {
+        <h2 class="text-2xl font-bold font-display text-accent-dark mb-1">
+          Iniciar sesión
+        </h2>
+        <p class="text-gray-600 text-sm">
+          Ingresa tus credenciales para acceder a tu panel
+        </p>
+        } @else {
+        <h2 class="text-2xl font-bold font-display text-accent-dark mb-1">
+          Crear cuenta
+        </h2>
+        <p class="text-gray-600 text-sm">
+          Completa tus datos para comenzar tu viaje
+        </p>
+        }
       </div>
 
       <!-- Contenedor de autenticación -->
@@ -70,11 +97,10 @@
 
         <!-- Botón de Google -->
         <button
-          class="w-full flex items-center justify-center gap-3 px-6 py-3 bg-white border-2 border-gray-200 rounded-custom font-medium text-gray-700 hover:border-primary hover:bg-gray-50 hover:shadow-lg hover:-translate-y-0.5 transition-all disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+          class="w-full flex items-center justify-center gap-3 px-6 py-3.5 bg-white border-2 border-gray-300 rounded-xl font-medium text-gray-700 hover:border-gray-400 hover:bg-gray-50 hover:shadow-md transition-all disabled:opacity-60 disabled:cursor-not-allowed"
           (click)="iniciarSesionConGoogle()" [disabled]="autenticando" [class.border-primary]="autenticandoGoogle"
           [class.bg-primary/5]="autenticandoGoogle">
 
-          <!-- Icono de Google -->
           @if (!autenticandoGoogle) {
           <span class="flex-shrink-0">
             <svg width="20" height="20" viewBox="0 0 24 24">
@@ -100,14 +126,14 @@
           <div class="absolute inset-0 flex items-center">
             <div class="w-full border-t border-gray-200"></div>
           </div>
-          <div class="relative flex justify-center text-sm">
-            <span class="px-4 bg-background-light text-gray-500 font-medium">o</span>
+          <div class="relative flex justify-center text-xs">
+            <span class="px-4 bg-background-light text-gray-500 font-medium">O también puedes</span>
           </div>
         </div>
 
         <!-- Botón para mostrar formulario de email -->
         <button
-          class="w-full px-6 py-3 bg-primary/10 border-2 border-primary rounded-custom font-bold text-primary hover:bg-primary hover:text-white hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-0.5 transition-all disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+          class="w-full px-6 py-3.5 bg-white border-2 border-gray-300 rounded-xl font-semibold text-gray-700 hover:border-primary hover:bg-primary/5 hover:text-primary transition-all disabled:opacity-60 disabled:cursor-not-allowed"
           (click)="toggleFormularioEmail()" [disabled]="autenticando" type="button">
           @if (!mostrarFormularioEmail) {
           <span class="flex items-center justify-center gap-2">
@@ -124,58 +150,90 @@
 
         <!-- Formulario de email/password -->
         @if (mostrarFormularioEmail) {
-        <form class="mt-6 bg-white p-6 rounded-custom border-2 border-primary/20 shadow-sm animate-fade-in-up"
-          (ngSubmit)="procesarFormularioEmail()" #emailForm="ngForm">
-
-          <!-- Título del formulario -->
-          <h3 class="text-xl font-bold font-display text-accent-dark mb-4 flex items-center gap-2">
-            @if (modoFormulario === 'login') {
-            <span class="material-icons-outlined text-primary">lock</span>
-            <span>Iniciar Sesión</span>
-            } @else {
-            <span class="material-icons-outlined text-primary">person_add</span>
-            <span>Crear Cuenta</span>
-            }
-          </h3>
+        <form class="mt-6 space-y-4" (ngSubmit)="procesarFormularioEmail()" #emailForm="ngForm">
 
           <!-- Campo de nombre (solo para registro) -->
           @if (modoFormulario === 'registro') {
-          <div class="mb-4">
-            <label for="nombre" class="block text-sm font-semibold text-gray-700 mb-1.5">Nombre completo</label>
-            <input type="text" id="nombre" name="nombre" [(ngModel)]="nombre" placeholder="Ingresa tu nombre completo"
+          <div>
+            <label for="nombre" class="block text-sm font-medium text-gray-700 mb-1.5">Nombre completo</label>
+            <input type="text" id="nombre" name="nombre" [(ngModel)]="nombre" placeholder="Ej: Juan Pérez"
               [disabled]="autenticandoEmail" required
-              class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-custom focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none disabled:bg-gray-100 disabled:cursor-not-allowed">
+              class="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none disabled:bg-gray-100 disabled:cursor-not-allowed">
+          </div>
+          }
+
+          <!-- Email y Password en dos columnas (desktop) para registro -->
+          @if (modoFormulario === 'registro') {
+          <div class="grid md:grid-cols-2 gap-4">
+            <!-- Email -->
+            <div>
+              <label for="email" class="block text-sm font-medium text-gray-700 mb-1.5">Correo electrónico</label>
+              <input type="email" id="email" name="email" [(ngModel)]="email" placeholder="tu@ejemplo.com"
+                [disabled]="autenticandoEmail" required
+                class="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none disabled:bg-gray-100 disabled:cursor-not-allowed">
+            </div>
+
+            <!-- Password -->
+            <div>
+              <label for="password" class="block text-sm font-medium text-gray-700 mb-1.5">Contraseña</label>
+              <input type="password" id="password" name="password" [(ngModel)]="password"
+                placeholder="Mínimo 6 caracteres" [disabled]="autenticandoEmail" minlength="6" required
+                class="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none disabled:bg-gray-100 disabled:cursor-not-allowed">
+            </div>
+          </div>
+          } @else {
+          <!-- Email y Password full-width para login -->
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-700 mb-1.5">Correo electrónico</label>
+            <input type="email" id="email" name="email" [(ngModel)]="email" placeholder="tu@ejemplo.com"
+              [disabled]="autenticandoEmail" required
+              class="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none disabled:bg-gray-100 disabled:cursor-not-allowed">
           </div>
 
-          <!-- Campo de género (solo para registro) -->
-          <div class="mb-4">
-            <label for="genero" class="block text-sm font-semibold text-gray-700 mb-1.5">Género</label>
-            <select id="genero" name="genero" [(ngModel)]="genero" [disabled]="autenticandoEmail" required
-              class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-custom focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none disabled:bg-gray-100 disabled:cursor-not-allowed">
-              <option value="" disabled selected>Selecciona tu género</option>
-              <option value="masculino">Masculino</option>
-              <option value="femenino">Femenino</option>
-              <option value="otro">Otro</option>
-              <option value="prefiero-no-decir">Prefiero no decir</option>
-            </select>
+          <div>
+            <div class="flex justify-between items-center mb-1.5">
+              <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
+              <button type="button" class="text-xs text-primary hover:underline">¿Olvidaste tu contraseña?</button>
+            </div>
+            <input type="password" id="password" name="password" [(ngModel)]="password"
+              placeholder="Ingresa tu contraseña" [disabled]="autenticandoEmail" minlength="6" required
+              class="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none disabled:bg-gray-100 disabled:cursor-not-allowed">
+          </div>
+          }
+
+          <!-- Género y Edad en dos columnas (solo registro) -->
+          @if (modoFormulario === 'registro') {
+          <div class="grid md:grid-cols-2 gap-4">
+            <!-- Género -->
+            <div>
+              <label for="genero" class="block text-sm font-medium text-gray-700 mb-1.5">Género</label>
+              <select id="genero" name="genero" [(ngModel)]="genero" [disabled]="autenticandoEmail" required
+                class="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none disabled:bg-gray-100 disabled:cursor-not-allowed">
+                <option value="" disabled selected>Selecciona</option>
+                <option value="masculino">Masculino</option>
+                <option value="femenino">Femenino</option>
+                <option value="otro">Otro</option>
+                <option value="prefiero-no-decir">Prefiero no decir</option>
+              </select>
+            </div>
+
+            <!-- Edad -->
+            <div>
+              <label for="edad" class="block text-sm font-medium text-gray-700 mb-1.5">Edad</label>
+              <input type="number" id="edad" name="edad" [(ngModel)]="edad" placeholder="Ej: 25"
+                [disabled]="autenticandoEmail" min="18" max="100" required
+                class="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none disabled:bg-gray-100 disabled:cursor-not-allowed">
+            </div>
           </div>
 
-          <!-- Campo de edad (solo para registro) -->
-          <div class="mb-4">
-            <label for="edad" class="block text-sm font-semibold text-gray-700 mb-1.5">Edad</label>
-            <input type="number" id="edad" name="edad" [(ngModel)]="edad" placeholder="Ingresa tu edad"
-              [disabled]="autenticandoEmail" min="18" max="100" required
-              class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-custom focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none disabled:bg-gray-100 disabled:cursor-not-allowed">
-          </div>
-
-          <!-- Campo de situación laboral (solo para registro) -->
-          <div class="mb-4">
-            <label for="situacionLaboral" class="block text-sm font-semibold text-gray-700 mb-1.5">Situación
+          <!-- Situación laboral (solo registro) -->
+          <div>
+            <label for="situacionLaboral" class="block text-sm font-medium text-gray-700 mb-1.5">Situación
               laboral</label>
             <select id="situacionLaboral" name="situacionLaboral" [(ngModel)]="situacionLaboral"
               [disabled]="autenticandoEmail" required
-              class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-custom focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none disabled:bg-gray-100 disabled:cursor-not-allowed">
-              <option value="" disabled selected>Selecciona tu situación</option>
+              class="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none disabled:bg-gray-100 disabled:cursor-not-allowed">
+              <option value="" disabled selected>¿Cuál es tu estado actual?</option>
               <option value="empleado">Empleado</option>
               <option value="desempleado">Desempleado</option>
               <option value="freelance">Freelance</option>
@@ -184,43 +242,24 @@
               <option value="jubilado">Jubilado</option>
             </select>
           </div>
-          }
 
-          <!-- Campo de email -->
-          <div class="mb-4">
-            <label for="email" class="block text-sm font-semibold text-gray-700 mb-1.5">Email</label>
-            <input type="email" id="email" name="email" [(ngModel)]="email" placeholder="ejemplo@correo.com"
-              [disabled]="autenticandoEmail" required
-              class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-custom focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none disabled:bg-gray-100 disabled:cursor-not-allowed">
-          </div>
-
-          <!-- Campo de contraseña -->
-          <div class="mb-4">
-            <label for="password" class="block text-sm font-semibold text-gray-700 mb-1.5">Contraseña</label>
-            <input type="password" id="password" name="password" [(ngModel)]="password"
-              placeholder="Mínimo 6 caracteres" [disabled]="autenticandoEmail" minlength="6" required
-              class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-custom focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none disabled:bg-gray-100 disabled:cursor-not-allowed">
-          </div>
-
-          <!-- Campo de confirmar contraseña (solo para registro) -->
-          @if (modoFormulario === 'registro') {
-          <div class="mb-4">
-            <label for="confirmarPassword" class="block text-sm font-semibold text-gray-700 mb-1.5">Confirmar
+          <!-- Confirmar contraseña (solo registro) -->
+          <div>
+            <label for="confirmarPassword" class="block text-sm font-medium text-gray-700 mb-1.5">Confirmar
               contraseña</label>
             <input type="password" id="confirmarPassword" name="confirmarPassword" [(ngModel)]="confirmarPassword"
               placeholder="Confirma tu contraseña" [disabled]="autenticandoEmail" required
-              class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-custom focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none disabled:bg-gray-100 disabled:cursor-not-allowed">
+              class="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none disabled:bg-gray-100 disabled:cursor-not-allowed">
           </div>
           }
 
           <!-- Botón de envío -->
           <button type="submit"
-            class="w-full px-6 py-3 bg-gradient-to-r from-primary to-primary/90 text-white rounded-custom font-bold hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5 transition-all disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0 flex items-center justify-center gap-2"
-            [disabled]="autenticandoEmail || !emailForm.valid" [class.opacity-75]="autenticandoEmail">
+            class="w-full px-6 py-3.5 bg-primary text-white rounded-xl font-bold hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20 transition-all disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-6"
+            [disabled]="autenticandoEmail || !emailForm.valid">
 
             @if (!autenticandoEmail) {
-            <span class="material-icons-outlined">{{ modoFormulario === 'login' ? 'lock' : 'person_add' }}</span>
-            <span>{{ modoFormulario === 'login' ? 'Iniciar Sesión' : 'Crear Cuenta' }}</span>
+            <span>{{ modoFormulario === 'login' ? 'Iniciar sesión' : 'Crear cuenta' }}</span>
             } @else {
             <span class="spinner w-5 h-5 border-2 border-white/30 border-t-white rounded-full"></span>
             <span>{{ modoFormulario === 'login' ? 'Iniciando sesión...' : 'Creando cuenta...' }}</span>
@@ -228,19 +267,19 @@
           </button>
 
           <!-- Enlace para cambiar modo -->
-          <div class="mt-4 text-center text-sm text-gray-600">
+          <div class="text-center text-sm text-gray-600 mt-4">
             @if (modoFormulario === 'login') {
             <span>¿No tienes cuenta?
-              <button type="button" class="text-primary font-semibold hover:underline" (click)="cambiarModoFormulario()"
-                [disabled]="autenticandoEmail">
-                Crear una nueva
+              <button type="button" class="text-primary font-bold hover:underline ml-1"
+                (click)="cambiarModoFormulario()" [disabled]="autenticandoEmail">
+                Regístrate
               </button>
             </span>
             } @else {
             <span>¿Ya tienes cuenta?
-              <button type="button" class="text-primary font-semibold hover:underline" (click)="cambiarModoFormulario()"
-                [disabled]="autenticandoEmail">
-                Iniciar sesión
+              <button type="button" class="text-primary font-bold hover:underline ml-1"
+                (click)="cambiarModoFormulario()" [disabled]="autenticandoEmail">
+                Inicia sesión
               </button>
             </span>
             }
@@ -251,20 +290,13 @@
 
         <!-- Mensaje de error si existe -->
         @if (mensajeError) {
-        <div class="mt-4 p-4 bg-red-50 border-2 border-red-200 rounded-custom animate-fade-in-up">
+        <div class="mt-4 p-4 bg-red-50 border border-red-200 rounded-xl">
           <div class="flex items-start gap-3">
-            <span class="material-icons-outlined text-red-600 flex-shrink-0">error</span>
+            <span class="material-icons-outlined text-red-600 flex-shrink-0 text-xl">error</span>
             <p class="text-sm font-medium text-red-800">{{ mensajeError }}</p>
           </div>
         </div>
         }
-
-        <!-- Información adicional -->
-        <div class="mt-6 text-center">
-          <p class="text-xs text-gray-500 leading-relaxed">
-            Al continuar, aceptas que utilizamos Google para autenticarte de forma segura. No almacenamos tu contraseña.
-          </p>
-        </div>
 
       </div>
 

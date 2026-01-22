@@ -1,39 +1,5 @@
 /* Animaciones personalizadas para el componente Auth */
 
-/* Animación de float para elementos decorativos */
-@keyframes float {
-
-    0%,
-    100% {
-        transform: translateY(0px);
-    }
-
-    50% {
-        transform: translateY(-12px);
-    }
-}
-
-.animate-float {
-    animation: float 3s ease-in-out infinite;
-}
-
-/* Animación de fade in up para formularios */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.animate-fade-in-up {
-    animation: fadeInUp 0.5s ease-out forwards;
-}
-
 /* Spinner de carga */
 .spinner {
     animation: spin 1s linear infinite;
@@ -49,11 +15,20 @@
     }
 }
 
-/* Delays para animaciones blob (ya definidos en styles.css global) */
-.animation-delay-2000 {
-    animation-delay: 2s;
+/* Animación de fade in para mensajes de error */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.animation-delay-4000 {
-    animation-delay: 4s;
+/* Estilos para avatares con borde */
+.avatar-border {
+    border: 2px solid var(--color-dark-gray);
 }
