@@ -223,10 +223,7 @@
                 <select id="genero" name="genero" [(ngModel)]="genero" [disabled]="autenticandoEmail"
                   class="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none disabled:bg-gray-100 disabled:cursor-not-allowed">
                   <option value="" selected>Selecciona</option>
-                  <option value="masculino">Masculino</option>
-                  <option value="femenino">Femenino</option>
-                  <option value="otro">Otro</option>
-                  <option value="prefiero-no-decir">Prefiero no decir</option>
+                  <option *ngFor="let option of genderOptions" [value]="option.value">{{ option.label }}</option>
                 </select>
               </div>
 

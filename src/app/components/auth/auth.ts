@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth';
+import { GENDER_OPTIONS } from '../../models/gender.model';
 
 @Component({
   selector: 'app-auth',
@@ -30,6 +31,7 @@ export class Auth {
   genero = '';
   edad = '';
   situacionLaboral = '';
+  genderOptions = GENDER_OPTIONS;
 
   // Estados de carga específicos
   autenticandoGoogle = false;
