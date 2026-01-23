@@ -5,6 +5,7 @@ import { inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth';
 import { GENDER_OPTIONS } from '../../models/gender.model';
+import { EMPLOYMENT_STATUS_OPTIONS } from '../../models/employment-status.model';
 
 @Component({
   selector: 'app-auth',
@@ -32,6 +33,7 @@ export class Auth {
   edad = '';
   situacionLaboral = '';
   genderOptions = GENDER_OPTIONS;
+  employmentStatusOptions = EMPLOYMENT_STATUS_OPTIONS;
 
   // Estados de carga específicos
   autenticandoGoogle = false;
