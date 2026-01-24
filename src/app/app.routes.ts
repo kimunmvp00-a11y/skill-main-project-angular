@@ -13,6 +13,12 @@ export const routes: Routes = [
         title: "Iniciar sesión - SkillMain"
     },
     {
+        path: 'onboarding-wizard',
+        loadComponent: () => import('./components/onboarding-wizard/onboarding-wizard').then(m => m.OnboardingWizard),
+        title: "Completa tu perfil - SkillMain",
+        canActivate: [AuthGuard]
+    },
+    {
         path: 'onboarding',
         loadComponent: () => import('./components/onboarding/onboarding').then(m => m.Onboarding),
         title: "Bienvenida - SkillMain",

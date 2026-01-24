@@ -7,6 +7,8 @@ export interface Perfil {
     usuario_uid: string;
     fechaCreacion: Date;
     ultimaActualizacion: Date;
+    onboardingCompletado: boolean;
+    onboardingStep: number;
     skills: Skill[];
     profetionalExps: ProfetionalExp[];
     studies: Studie[];

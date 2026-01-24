@@ -1,0 +1,252 @@
+<div class="wizard-container">
+    @if (loading) {
+    <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Cargando...</p>
+    </div>
+    } @else {
+    <!-- Header con logo y botón completar después -->
+    <header class="wizard-header">
+        <div class="logo">
+            <span class="material-icons-outlined text-primary">rocket_launch</span>
+            <span class="text-2xl font-bold font-display">
+                Skill<span class="text-primary">Main</span>
+            </span>
+        </div>
+        <button (click)="saveAndContinueLater()" [disabled]="saving" class="btn-secondary" type="button">
+            {{ saving ? 'Guardando...' : 'Completar más tarde' }}
+        </button>
+    </header>
+
+    <!-- Progress bar -->
+    <div class="progress-section">
+        <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="progress"></div>
+        </div>
+        <p class="progress-text">Paso {{ currentStep + 1 }} de 4</p>
+    </div>
+
+    <!-- Step indicators -->
+    <div class="step-indicators">
+        <div *ngFor="let step of [0, 1, 2, 3]" (click)="goToStep(step)" [class.active]="currentStep === step"
+            [class.completed]="currentStep > step" class="step-indicator">
+            <div class="step-circle">{{ step + 1 }}</div>
+            <span class="step-label">
+                @if (step === 0) { Intereses }
+                @if (step === 1) { Habilidades }
+                @if (step === 2) { Experiencia }
+                @if (step === 3) { Educación }
+            </span>
+        </div>
+    </div>
+
+    <!-- Main card con los pasos -->
+    <div class="wizard-card">
+        <!-- Header del paso -->
+        <div class="step-header">
+            <div class="step-icon">{{ getStepIcon() }}</div>
+            <h2 class="step-title">{{ getStepTitle() }}</h2>
+        </div>
+
+        <!-- Step 1: Intereses -->
+        @if (currentStep === 0) {
+        <div class="step-content">
+            <p class="step-description">
+                Selecciona los temas que te gustaría aprender. Puedes elegir múltiples opciones.
+            </p>
+
+            <div class="chips-grid">
+                <div *ngFor="let interest of availableInterests" (click)="toggleInterest(interest)"
+                    [class.selected]="isInterestSelected(interest)" class="chip">
+                    <span class="chip-label">{{ interest.nombre }}</span>
+                    @if (isInterestSelected(interest)) {
+                    <span class="material-icons-outlined chip-check">check_circle</span>
+                    }
+                </div>
+            </div>
+
+            @if (state.selectedInterests.length > 0) {
+            <div class="selection-summary">
+                <strong>Seleccionados:</strong> {{ state.selectedInterests.length }} intereses
+            </div>
+            }
+        </div>
+        }
+
+        <!-- Step 2: Habilidades -->
+        @if (currentStep === 1) {
+        <div class="step-content">
+            <p class="step-description">
+                ¿Cuáles son tus habilidades actuales? Selecciona las que mejor te representen.
+            </p>
+
+            <div class="chips-grid">
+                <div *ngFor="let skill of availableSkills" (click)="toggleSkill(skill)"
+                    [class.selected]="isSkillSelected(skill)" class="chip">
+                    <span class="chip-label">{{ skill.nombre }}</span>
+                    @if (isSkillSelected(skill)) {
+                    <span class="material-icons-outlined chip-check">check_circle</span>
+                    }
+                </div>
+            </div>
+
+            @if (state.selectedSkills.length > 0) {
+            <div class="selection-summary">
+                <strong>Seleccionadas:</strong> {{ state.selectedSkills.length }} habilidades
+            </div>
+            }
+        </div>
+        }
+
+        <!-- Step 3: Experiencia Profesional -->
+        @if (currentStep === 2) {
+        <div class="step-content">
+            <p class="step-description">
+                Agrega tu experiencia profesional (opcional). Puedes agregar múltiples entradas.
+            </p>
+
+            <!-- Formulario para agregar experiencia -->
+            <div class="form-section">
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label>Cargo</label>
+                        <input type="text" [(ngModel)]="newExperience.cargo" placeholder="Ej: Desarrollador Web"
+                            class="input">
+                    </div>
+
+                    <div class="form-field">
+                        <label>Empresa</label>
+                        <input type="text" [(ngModel)]="newExperience.nombreEmpresa" placeholder="Ej: Acme Corp"
+                            class="input">
+                    </div>
+
+                    <div class="form-field">
+                        <label>Fecha Inicio</label>
+                        <input type="date" [(ngModel)]="newExperience.fechaInicio" class="input">
+                    </div>
+
+                    <div class="form-field">
+                        <label>Fecha Fin (opcional)</label>
+                        <input type="date" [(ngModel)]="newExperience.fechaFin" class="input">
+                    </div>
+
+                    <div class="form-field full-width">
+                        <label>Descripción (opcional)</label>
+                        <textarea [(ngModel)]="newExperience.descripcion" rows="3"
+                            placeholder="Describe tus responsabilidades..." class="input"></textarea>
+                    </div>
+                </div>
+
+                <button (click)="addExperience()" [disabled]="!newExperience.cargo || !newExperience.nombreEmpresa"
+                    class="btn-add" type="button">
+                    <span class="material-icons-outlined">add_circle</span>
+                    Agregar Experiencia
+                </button>
+            </div>
+
+            <!-- Lista de experiencias agregadas -->
+            @if (state.experiences.length > 0) {
+            <div class="items-list">
+                <h4 class="list-title">Experiencias agregadas:</h4>
+                <div *ngFor="let exp of state.experiences" class="item-card">
+                    <div class="item-header">
+                        <div>
+                            <strong>{{ exp.cargo }}</strong>
+                            <span class="item-place">{{ exp.nombreEmpresa }}</span>
+                        </div>
+                        <button (click)="removeExperience(exp.uid)" class="btn-remove" type="button">
+                            <span class="material-icons-outlined">delete</span>
+                        </button>
+                    </div>
+                    @if (exp.descripcion) {
+                    <p class="item-description">{{ exp.descripcion }}</p>
+                    }
+                </div>
+            </div>
+            }
+        </div>
+        }
+
+        <!-- Step 4: Educación -->
+        @if (currentStep === 3) {
+        <div class="step-content">
+            <p class="step-description">
+                Agrega tu formación académica (opcional). Puedes agregar múltiples títulos.
+            </p>
+
+            <!-- Formulario para agregar estudios -->
+            <div class="form-section">
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label>Título</label>
+                        <input type="text" [(ngModel)]="newStudy.titulo" placeholder="Ej: Ingeniería en Sistemas"
+                            class="input">
+                    </div>
+
+                    <div class="form-field">
+                        <label>Institución</label>
+                        <input type="text" [(ngModel)]="newStudy.nombreInstitucion" placeholder="Ej: Universidad XYZ"
+                            class="input">
+                    </div>
+
+                    <div class="form-field">
+                        <label>Fecha Inicio</label>
+                        <input type="date" [(ngModel)]="newStudy.fechaInicio" class="input">
+                    </div>
+
+                    <div class="form-field">
+                        <label>Fecha Fin (opcional)</label>
+                        <input type="date" [(ngModel)]="newStudy.fechaFin" class="input">
+                    </div>
+                </div>
+
+                <button (click)="addStudy()" [disabled]="!newStudy.titulo || !newStudy.nombreInstitucion"
+                    class="btn-add" type="button">
+                    <span class="material-icons-outlined">add_circle</span>
+                    Agregar Estudio
+                </button>
+            </div>
+
+            <!-- Lista de estudios agregados -->
+            @if (state.studies.length > 0) {
+            <div class="items-list">
+                <h4 class="list-title">Estudios agregados:</h4>
+                <div *ngFor="let study of state.studies" class="item-card">
+                    <div class="item-header">
+                        <div>
+                            <strong>{{ study.titulo }}</strong>
+                            <span class="item-place">{{ study.nombreInstitucion }}</span>
+                        </div>
+                        <button (click)="removeStudy(study.uid)" class="btn-remove" type="button">
+                            <span class="material-icons-outlined">delete</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+        }
+    </div>
+
+    <!-- Navigation buttons -->
+    <div class="navigation-buttons">
+        <button (click)="previousStep()" [disabled]="currentStep === 0" class="btn-secondary" type="button">
+            <span class="material-icons-outlined">arrow_back</span>
+            Anterior
+        </button>
+
+        @if (currentStep < 3) { <button (click)="nextStep()" [disabled]="!canProceed()" class="btn-primary"
+            type="button">
+            Siguiente
+            <span class="material-icons-outlined">arrow_forward</span>
+            </button>
+            } @else {
+            <button (click)="completeOnboarding()" [disabled]="saving || !canProceed()" class="btn-primary"
+                type="button">
+                {{ saving ? 'Completando...' : 'Finalizar' }}
+                <span class="material-icons-outlined">check_circle</span>
+            </button>
+            }
+    </div>
+    }
+</div>

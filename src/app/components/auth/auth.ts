@@ -152,7 +152,12 @@ export class Auth {
       }
 
       if (usuario) {
-        await this.router.navigate(['/chat']);
+        // Redirect según el modo
+        if (this.modoFormulario === 'registro') {
+          await this.router.navigate(['/onboarding-wizard']);
+        } else {
+          await this.router.navigate(['/chat']);
+        }
       } else {
         this.mensajeError = 'No se pudo completar la operación';
       }
