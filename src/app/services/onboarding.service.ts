@@ -34,8 +34,8 @@ export class OnboardingService {
     // Obtener intereses disponibles desde Firestore
     async loadAvailableInterests(): Promise<InterestToGrow[]> {
         try {
-            const interests = await this.firestoreService.obtenerDocumentos<InterestToGrow>('interestToGrow');
-            return interests;
+            const interests = await this.firestoreService.obtenerDocumentos<any>('interestToGrow');
+            return interests.map(doc => ({ ...doc, uid: doc.id }));
         } catch (error) {
             console.error('Error loading interests:', error);
             return [];
@@ -45,8 +45,8 @@ export class OnboardingService {
     // Obtener habilidades disponibles desde Firestore
     async loadAvailableSkills(): Promise<Skill[]> {
         try {
-            const skills = await this.firestoreService.obtenerDocumentos<Skill>('skills');
-            return skills;
+            const skills = await this.firestoreService.obtenerDocumentos<any>('skills');
+            return skills.map(doc => ({ ...doc, uid: doc.id }));
         } catch (error) {
             console.error('Error loading skills:', error);
             return [];
